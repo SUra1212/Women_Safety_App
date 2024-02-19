@@ -172,22 +172,38 @@ class _SafeHomeState extends State<SafeHome> {
           height: 180,
           width: MediaQuery.of(context).size.width * 0.7,
           decoration: BoxDecoration(),
-          child: Row(
+         child: Row(
             children: [
               Expanded(
-                  child: Column(
-                children: [
-                  ListTile(
-                    title: Text("Send Location"),
-                    subtitle: Text("Share Location"),
-                  ),
-                ],
-              )),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Share location Now!",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                              height:
+                                  8), // Adding gap between title and subtitle
+                          Text(
+                            "Tap to send the Current Location",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset('assets/route.jpg')),
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset('assets/locationshare.png'),
+              ),
             ],
           ),
+
         ),
       ),
     );
