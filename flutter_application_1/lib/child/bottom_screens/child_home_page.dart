@@ -112,10 +112,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+     _getCurrentLocation();
     getRandomQuote();
     super.initState();
     _getPermission();
-    _getCurrentLocation();
 
     ////// shake feature ///
 
@@ -155,6 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView(
                   shrinkWrap: true,
                   children: [
+                    SafeHome(),
                     SizedBox(height: 10),
                     Align(
                       alignment: Alignment.center,
@@ -196,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: 10),
                     LiveSafe(),
-                    SafeHome(),
+                    // SafeHome(),
                   ],
                 ),
               ),
