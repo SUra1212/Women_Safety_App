@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/child/bottom_screens/add_contacts.dart';
 import 'package:flutter_application_1/child/bottom_screens/child_home_page.dart';
+import 'package:flutter_application_1/child/bottom_screens/councillors.dart';
 import 'package:flutter_application_1/child/bottom_screens/profile_page.dart';
 import 'package:flutter_application_1/child/bottom_screens/review_page.dart';
 
@@ -17,6 +18,7 @@ class _BottomPageState extends State<BottomPage> {
     HomeScreen(),
     AddContactsPage(),
     CheckUserStatusBeforeChatOnProfile(),
+    CouncillorsPage(),
     ReviewPage(),
   ];
   onTapped(int index) {
@@ -50,7 +52,12 @@ class _BottomPageState extends State<BottomPage> {
                 Icons.person,
               )),
           BottomNavigationBarItem(
-              label: 'Reviews',
+              label: 'Councillors',
+              icon: Icon(
+                Icons.person_add_alt_1,
+              )),
+          BottomNavigationBarItem(
+              label: 'Community',
               icon: Icon(
                 Icons.reviews,
               ))

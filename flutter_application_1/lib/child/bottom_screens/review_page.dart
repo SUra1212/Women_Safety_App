@@ -1,7 +1,8 @@
 //import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_application_1/child/bottom_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_application_1/components/PrimaryButton.dart';
 //import 'package:flutter_application_1/components/SecondaryButton.dart';
@@ -13,8 +14,8 @@ class ReviewPage extends StatefulWidget {
 }
 
 class _ReviewPageState extends State<ReviewPage> {
-  TextEditingController locationC = TextEditingController();
   TextEditingController viewsC = TextEditingController();
+  TextEditingController namecC = TextEditingController();
   bool isSaving = false;
 
   showAlert(BuildContext context) {
@@ -22,40 +23,45 @@ class _ReviewPageState extends State<ReviewPage> {
         context: context,
         builder: (_) {
           return AlertDialog(
-            title: Text("Review your place"),
-            content: Form(
+            title: Text("Share Your Story"),
+            content: SingleChildScrollView(
+              child: Form(
                 child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomTextField(
-                    hintText: 'Enter Location',
-                    controller: locationC,
-                  ),
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: CustomTextField(
+                        hintText: 'Enter Your Name',
+                        controller: namecC,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: CustomTextField(
+                        controller: viewsC,
+                        hintText: 'Description',
+                        maxLines: 3,
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomTextField(
-                    controller: viewsC,
-                    hintText: 'Description',
-                    maxLines: 3,
-                  ),
-                ),
-              ],
-            )),
+              ),
+            ),
             actions: [
               PrimaryButton(
-                  title: "SAVE",
-                  onPressed: () {
-                    saveReview();
-                    Navigator.pop(context);
-                  }),
+                title: "SAVE",
+                onPressed: () {
+                  saveReview();
+                  Navigator.pop(context);
+                },
+              ),
               TextButton(
-                  child: Text("Cancel"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
+                child: Text("Cancel"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
             ],
           );
         });
@@ -65,12 +71,13 @@ class _ReviewPageState extends State<ReviewPage> {
     setState(() {
       isSaving = true;
     });
-    await FirebaseFirestore.instance
-        .collection('reviews')
-        .add({'location': locationC.text, 'views': viewsC.text}).then((value) {
+    await FirebaseFirestore.instance.collection('reviews').add({
+      'name': namecC.text,
+      'views': viewsC.text
+    }).then((value) {
       setState(() {
         isSaving = false;
-        Fluttertoast.showToast(msg: 'review uploaded successfully');
+        Fluttertoast.showToast(msg: 'Story Save Successfully');
       });
     });
   }
@@ -78,15 +85,26 @@ class _ReviewPageState extends State<ReviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Community'),
+        backgroundColor: Colors.pink,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () async {
+            bool result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BottomPage(),
+              ),
+            );
+          },
+        ),
+      ),
       body: isSaving == true
           ? Center(child: CircularProgressIndicator())
           : SafeArea(
               child: Column(
                 children: [
-                  Text(
-                    "Recent Review by other",
-                    style: TextStyle(fontSize: 30, color: Colors.black),
-                  ),
                   Expanded(
                     child: StreamBuilder(
                       stream: FirebaseFirestore.instance
@@ -108,10 +126,17 @@ class _ReviewPageState extends State<ReviewPage> {
                                 elevation: 10,
                                 // color: Colors.primaries[Random().nextInt(17)],
                                 child: ListTile(
-                                  title: Text(
-                                    data['location'],
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.black),
+                                  title: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        data['name'],
+                                        style: TextStyle(
+                                            fontSize: 20, color: Colors.black),
+                                      ),
+                                
+                                    ],
                                   ),
                                   subtitle: Text(data['views']),
                                 ),

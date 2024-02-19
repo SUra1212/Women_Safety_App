@@ -113,7 +113,7 @@ class _ContactsPageState extends State<ContactsPage> {
                       autofocus: true,
                       controller: searchController,
                       decoration: InputDecoration(
-                          labelText: "search sontact",
+                          labelText: "search contact",
                           prefixIcon: Icon(Icons.search)),
                     ),
                   ),
