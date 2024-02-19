@@ -16,6 +16,8 @@ class RegisterChildScreen extends StatefulWidget {
 class _RegisterChildScreenState extends State<RegisterChildScreen> {
   bool isPasswordShown = true;
   bool isRetypePasswordShown = true;
+  String? gender;
+  DateTime? selectedDate;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -48,7 +50,8 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
             name: _formData['name'].toString(),
             phone: _formData['phone'].toString(),
             childEmail: _formData['cemail'].toString(),
-            guardianEmail: _formData['gemail'].toString(),
+            gender: _formData['gender'].toString(),
+            dob: _formData['dob'].toString(),
             id: v,
             type: 'child',
           );
@@ -83,6 +86,21 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
     print(_formData['password']);
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+        _formData['dob'] =
+            picked.toString(); // Save the selected date to your form data
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +120,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  "REGISTER AS CHILD",
+                                  "REGISTER",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 40,
@@ -126,7 +144,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   CustomTextField(
-                                    hintText: 'enter name',
+                                    hintText: 'Enter Name',
                                     textInputAction: TextInputAction.next,
                                     keyboardtype: TextInputType.name,
                                     prefix: Icon(Icons.person),
@@ -135,13 +153,13 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                     },
                                     validate: (email) {
                                       if (email!.isEmpty || email.length < 3) {
-                                        return 'enter correct name';
+                                        return 'Enter correct name';
                                       }
                                       return null;
                                     },
                                   ),
                                   CustomTextField(
-                                    hintText: 'enter phone',
+                                    hintText: 'Enter Phone',
                                     textInputAction: TextInputAction.next,
                                     keyboardtype: TextInputType.phone,
                                     prefix: Icon(Icons.phone),
@@ -156,7 +174,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                     },
                                   ),
                                   CustomTextField(
-                                    hintText: 'enter email',
+                                    hintText: 'Enter Email',
                                     textInputAction: TextInputAction.next,
                                     keyboardtype: TextInputType.emailAddress,
                                     prefix: Icon(Icons.person),
@@ -167,24 +185,61 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                       if (email!.isEmpty ||
                                           email.length < 3 ||
                                           !email.contains("@")) {
-                                        return 'enter correct email';
+                                        return 'Enter Correct Email';
                                       }
                                     },
                                   ),
-                                  CustomTextField(
-                                    hintText: 'enter guardian email',
-                                    textInputAction: TextInputAction.next,
-                                    keyboardtype: TextInputType.emailAddress,
-                                    prefix: Icon(Icons.person),
-                                    onsave: (gemail) {
-                                      _formData['gemail'] = gemail ?? "";
+                                  Row(
+                                    children: [
+                                      Radio(
+                                        value: 'Male',
+                                        groupValue: gender,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            gender = value as String;
+                                            _formData['gender'] =
+                                                value as String;
+                                          });
+                                        },
+                                      ),
+                                      Text('Male'),
+                                      Radio(
+                                        value: 'Female',
+                                        groupValue: gender,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            gender = value as String;
+                                            _formData['gender'] =
+                                                value as String;
+                                          });
+                                        },
+                                      ),
+                                      Text('Female'),
+                                      // Add more radio buttons for other gender options if needed
+                                    ],
+                                  ),
+                                  TextFormField(
+                                    decoration: InputDecoration(
+                                      hintText: 'Enter DOB',
+                                      prefixIcon: Icon(Icons.calendar_today),
+                                    ),
+                                    readOnly: true, // Make the field read-only
+                                    onTap: () {
+                                      _selectDate(
+                                          context); // Show date picker when the field is tapped
                                     },
-                                    validate: (email) {
-                                      if (email!.isEmpty ||
-                                          email.length < 3 ||
-                                          !email.contains("@")) {
-                                        return 'enter correct email';
+                                    controller: TextEditingController(
+                                      text: selectedDate != null
+                                          ? "${selectedDate!.toLocal()}"
+                                                  .split(' ')[
+                                              0] // Display selected date if available
+                                          : "",
+                                    ),
+                                    validator: (value) {
+                                      if (selectedDate == null) {
+                                        return 'Please select a date of birth';
                                       }
+                                      return null;
                                     },
                                   ),
                                   CustomTextField(
@@ -194,7 +249,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                     validate: (password) {
                                       if (password!.isEmpty ||
                                           password.length < 7) {
-                                        return 'enter correct password';
+                                        return 'Password must be at least 7 charactors long';
                                       }
                                       return null;
                                     },

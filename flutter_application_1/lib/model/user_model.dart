@@ -3,23 +3,26 @@ class UserModel {
   String? id;
   String? phone;
   String? childEmail;
-  String? guardianEmail;
   String? type;
+  String? gender;
+  String? dob;
 
   UserModel(
       {this.name,
       this.childEmail,
       this.id,
-      this.guardianEmail,
       this.phone,
-      this.type});
+      this.type,
+      this.gender,
+      this.dob});
 
   Map<String, dynamic> toJson() => {
         'name': name,
         'phone': phone,
         'id': id,
         'childEmail': childEmail,
-        'guardiantEmail': guardianEmail,
-        'type': type
+        'type': type,
+        'gender': gender,
+        'dob': dob
       };
 }
