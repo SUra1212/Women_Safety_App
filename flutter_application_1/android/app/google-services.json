@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "699059976816",
+    "project_id": "women-safety-app-f963b",
+    "storage_bucket": "women-safety-app-f963b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699059976816:android:cce58aa0b1fadf0a7e12b5",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJTsTE0eIb6tPO2yv4e0VFe95eQyrCX8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
