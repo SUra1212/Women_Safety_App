@@ -7,10 +7,7 @@ import 'package:flutter_application_1/components/SecondaryButton.dart';
 import 'package:flutter_application_1/components/custom_textfield.dart';
 import 'package:flutter_application_1/child/register_child.dart';
 import 'package:flutter_application_1/db/share_pref.dart';
-import 'package:flutter_application_1/parent/parent_register_screen.dart';
 import 'package:flutter_application_1/utils/constants.dart';
-
-import '../parent/parent_home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -50,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (value['type'] == 'parent') {
             print(value['type']);
             MySharedPrefference.saveUserType('parent');
-            goTo(context, ParentHomeScreen());
+            //goTo(context, ParentHomeScreen());
           } else {
             MySharedPrefference.saveUserType('child');
 
@@ -115,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 CustomTextField(
-                                  hintText: 'enter email',
+                                  hintText: 'Enter email',
                                   textInputAction: TextInputAction.next,
                                   keyboardtype: TextInputType.emailAddress,
                                   prefix: Icon(Icons.person),
@@ -126,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     if (email!.isEmpty ||
                                         email.length < 3 ||
                                         !email.contains("@")) {
-                                      return 'enter correct email';
+                                      return 'Enter correct email';
                                     }
                                   },
                                 ),
@@ -137,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   validate: (password) {
                                     if (password!.isEmpty ||
                                         password.length < 7) {
-                                      return 'enter correct password';
+                                      return 'enter corect password';
                                     }
                                     return null;
                                   },
@@ -171,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Frogot Password?",
+                                "Forget Password?",
                                 style: TextStyle(fontSize: 18),
                               ),
                               SecondaryButton(
@@ -180,15 +177,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         SecondaryButton(
-                            title: 'Register as child',
+                            title: 'Register',
                             onPressed: () {
                               goTo(context, RegisterChildScreen());
                             }),
-                        SecondaryButton(
-                            title: 'Register as Parent',
-                            onPressed: () {
-                              goTo(context, RegisterParentScreen());
-                            }),
+                        // SecondaryButton(
+                        //     title: 'Register as Parent',
+                        //     onPressed: () {
+                        //       goTo(context, RegisterParentScreen());
+                        //     }),
                       ],
                     ),
                   ),

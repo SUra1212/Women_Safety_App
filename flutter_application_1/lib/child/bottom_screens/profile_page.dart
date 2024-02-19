@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -11,7 +10,6 @@ import 'package:uuid/uuid.dart';
 import 'package:flutter_application_1/child/child_login_screen.dart';
 import 'package:flutter_application_1/components/PrimaryButton.dart';
 import 'package:flutter_application_1/components/custom_textfield.dart';
-//import 'package:flutter_application_1/utils/constants.dart';
 
 class CheckUserStatusBeforeChatOnProfile extends StatelessWidget {
   const CheckUserStatusBeforeChatOnProfile({super.key});
@@ -47,6 +45,8 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController nameC = TextEditingController();
   TextEditingController emailc = TextEditingController();
   TextEditingController phonec = TextEditingController();
+  TextEditingController genderc = TextEditingController();
+  TextEditingController dobc = TextEditingController();
 
   final key = GlobalKey<FormState>();
   String? id;
@@ -63,6 +63,9 @@ class _ProfilePageState extends State<ProfilePage> {
         nameC.text = value.docs.first['name'];
         emailc.text = value.docs.first['childEmail'];
         phonec.text = value.docs.first['phone'];
+        genderc.text = value.docs.first['gender'];
+        dobc.text = value.docs.first['dob'];
+
         id = value.docs.first.id;
         profilePic = value.docs.first['profilePic'];
       });
@@ -119,14 +122,13 @@ class _ProfilePageState extends State<ProfilePage> {
             ))
           : SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Center(
                   child: Form(
                       key: key,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SizedBox(height: 15),
                           GestureDetector(
                             onTap: () async {
                               final XFile? pickImage = await ImagePicker()
@@ -143,24 +145,24 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: profilePic == null
                                   ? CircleAvatar(
                                       backgroundColor: Colors.deepPurple,
-                                      radius: 80,
+                                      radius: 60,
                                       child: Center(
                                           child: Image.asset(
                                         'assets/add_pic.png',
-                                        height: 80,
-                                        width: 80,
+                                        height: 60,
+                                        width: 60,
                                       )),
                                     )
                                   : profilePic!.contains('http')
                                       ? CircleAvatar(
                                           backgroundColor: Colors.deepPurple,
-                                          radius: 80,
+                                          radius: 60,
                                           backgroundImage:
                                               NetworkImage(profilePic!),
                                         )
                                       : CircleAvatar(
                                           backgroundColor: Colors.deepPurple,
-                                          radius: 80,
+                                          radius: 60,
                                           backgroundImage:
                                               FileImage(File(profilePic!))),
                             ),
@@ -197,7 +199,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 25),
+                          //SizedBox(height: 25),
                           PrimaryButton(
                               title: "UPDATE",
                               onPressed: () async {
@@ -240,6 +242,8 @@ class _ProfilePageState extends State<ProfilePage> {
     uploadImage(profilePic!).then((value) {
       Map<String, dynamic> data = {
         'name': nameC.text,
+        'phone': phonec.text,
+        'childEmail': emailc.text,
         'profilePic': downloadUrl,
       };
       FirebaseFirestore.instance

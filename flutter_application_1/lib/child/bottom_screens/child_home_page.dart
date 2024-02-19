@@ -1,13 +1,9 @@
 import 'dart:math';
-
-//import 'package:background_sms/background_sms.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
-//import 'package:shake/shake.dart';
-//import 'package:telephony/telephony.dart';
 import 'package:flutter_application_1/db/db_services.dart';
 import 'package:flutter_application_1/model/contactsm.dart';
 import 'package:flutter_application_1/widgets/home_widgets/CustomCarouel.dart';
@@ -29,16 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   LocationPermission? permission;
   _getPermission() async => await [Permission.sms].request();
   _isPermissionGranted() async => await Permission.sms.status.isGranted;
-  // _sendSms(String phoneNumber, String message, {int? simSlot}) async {
-  //   SmsStatus result = await BackgroundSms.sendMessage(
-  //       phoneNumber: phoneNumber, message: message, simSlot: 1);
-  //   if (result == SmsStatus.sent) {
-  //     print("Sent");
-  //     Fluttertoast.showToast(msg: "send");
-  //   } else {
-  //     Fluttertoast.showToast(msg: "failed");
-  //   }
-  // }
 
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
