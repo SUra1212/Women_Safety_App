@@ -5,8 +5,8 @@ import 'package:flutter_application_1/utils/quotes.dart';
 class CustomAppBar extends StatelessWidget {
   // const CustomAppBar({super.key});
   Function? onTap;
-  int? quoteIndex;
-  CustomAppBar({this.onTap, this.quoteIndex});
+  // int? quoteIndex;
+  // CustomAppBar({this.onTap, this.quoteIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +14,13 @@ class CustomAppBar extends StatelessWidget {
       onTap: () {
         onTap!();
       },
-      child: Container(
-        child: Text(
-          sweetSayings[quoteIndex!],
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-      ),
+      // child: Container(
+      //   child: Text(
+      //     sweetSayings[quoteIndex!],
+      //     textAlign: TextAlign.center,
+      //     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      //   ),
+      // ),
     );
   }
 }

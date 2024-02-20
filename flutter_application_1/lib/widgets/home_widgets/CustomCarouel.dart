@@ -80,6 +80,7 @@ class CustomCarouel extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
+                          fontFamily: 'sans-serif',
                           fontSize: MediaQuery.of(context).size.width * 0.05,
                         ),
                       ),

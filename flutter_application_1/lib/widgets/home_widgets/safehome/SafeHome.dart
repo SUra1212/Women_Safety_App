@@ -164,6 +164,7 @@ class _SafeHomeState extends State<SafeHome> {
     return InkWell(
       onTap: () => showModelSafeHome(context),
       child: Card(
+        color: Color.fromARGB(255, 250, 195, 214),
         elevation: 5,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -181,25 +182,37 @@ class _SafeHomeState extends State<SafeHome> {
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Share location Now!",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                          Align(
+                            // alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Share location Now!",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                fontFamily: 'sans-serif',
+                              ),
+                            ),
                           ),
                           SizedBox(
-                              height:
-                                  8), // Adding gap between title and subtitle
-                          Text(
-                            "Tap to send the Current Location",
-                          ),
+                            height: 8,
+                          ), 
+                          // Text(
+                          //   "Tap to send the Current Location",
+                          // ),
                         ],
+
                       ),
                     ),
                   ],
                 ),
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset('assets/locationshare.png'),
+
+             Center(
+                // Center widget added here
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset('assets/loc.gif'),
+                ),
               ),
             ],
           ),
@@ -231,7 +244,7 @@ class PrimaryButton extends StatelessWidget {
           style: TextStyle(fontSize: 17),
         ),
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.pink,
+            backgroundColor: Color.fromARGB(255, 216, 50, 105),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30))),
       ),
