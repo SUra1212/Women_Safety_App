@@ -1,5 +1,6 @@
 import 'package:background_sms/background_sms.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/PrimaryButton.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -164,7 +165,6 @@ class _SafeHomeState extends State<SafeHome> {
     return InkWell(
       onTap: () => showModelSafeHome(context),
       child: Card(
-        color: Color.fromARGB(255, 250, 195, 214),
         elevation: 5,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -172,8 +172,19 @@ class _SafeHomeState extends State<SafeHome> {
         child: Container(
           height: 180,
           width: MediaQuery.of(context).size.width * 0.7,
-          decoration: BoxDecoration(),
-         child: Row(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFFFD8080),
+                Color(0xFFFB8580),
+                Color(0xFFFBD079),
+              ],
+            ),
+          ),
+          child: Row(
             children: [
               Expanded(
                 child: Column(
@@ -183,7 +194,6 @@ class _SafeHomeState extends State<SafeHome> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Align(
-                            // alignment: Alignment.centerLeft,
                             child: Text(
                               "Share location Now!",
                               style: TextStyle(
@@ -195,20 +205,14 @@ class _SafeHomeState extends State<SafeHome> {
                           ),
                           SizedBox(
                             height: 8,
-                          ), 
-                          // Text(
-                          //   "Tap to send the Current Location",
-                          // ),
+                          ),
                         ],
-
                       ),
                     ),
                   ],
                 ),
               ),
-
-             Center(
-                // Center widget added here
+              Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset('assets/loc.gif'),
@@ -216,7 +220,6 @@ class _SafeHomeState extends State<SafeHome> {
               ),
             ],
           ),
-
         ),
       ),
     );

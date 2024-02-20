@@ -1,8 +1,16 @@
+import 'dart:io';
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_application_1/components/custom_textfield.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_application_1/db/db_services.dart';
 import 'package:flutter_application_1/model/contactsm.dart';
@@ -22,8 +30,30 @@ class _HomeScreenState extends State<HomeScreen> {
   Position? _currentPosition;
   String? _currentAddress;
   LocationPermission? permission;
+  TextEditingController nameC = TextEditingController();
+
+  String? id;
+  String? profilePic;
+
   _getPermission() async => await [Permission.sms].request();
   _isPermissionGranted() async => await Permission.sms.status.isGranted;
+
+  getDate() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        nameC.text = value.docs.first['name'];
+
+        id = value.docs.first.id;
+        profilePic = value.docs.first['profilePic'];
+        print(nameC);
+        print(profilePic);
+      });
+    });
+  }
 
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
@@ -112,6 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
     getRandomQuote();
     super.initState();
     _getPermission();
+    getDate();
   }
 
   void _showImagesBasedOnEmoji(String emoji) {
@@ -139,24 +170,108 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+           actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.comment),
+            tooltip: 'Comment Icon',
+            onPressed: () {},
+          ), //IconButton
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: 'Setting Icon',
+            onPressed: () {},
+          ), //IconButton
+        ],
+        
+        titleSpacing: 00.0,
+        centerTitle: true,
+        toolbarHeight: 60.2,
+        toolbarOpacity: 0.8,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(25),
+              bottomLeft: Radius.circular(25)),
+        ),
+        elevation: 0.00,
+        backgroundColor: Colors.red.shade300,
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          tooltip: 'Menu Icon',
+          onPressed: () {},
+        ),
+
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin:
+                        EdgeInsets.only(right: 10), // Adjust margin as needed
+                    child: profilePic == null
+                        ? CircleAvatar(
+                            backgroundColor: Colors.deepPurple,
+                            radius: 30,
+                            child: Center(
+                              child: Image.asset(
+                                'assets/add_pic.png',
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                          )
+                        : profilePic!.contains('http')
+                            ? CircleAvatar(
+                                backgroundColor: Colors.deepPurple,
+                                radius: 30,
+                                backgroundImage: NetworkImage(profilePic!),
+                              )
+                            : CircleAvatar(
+                                backgroundColor: Colors.deepPurple,
+                                radius: 30,
+                                backgroundImage: FileImage(File(profilePic!)),
+                              ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Hi",
+                        style: TextStyle(
+                          fontSize: 16,
+                          // Adjust font size and style as needed
+                        ),
+                      ),
+                      Text(
+                        nameC.text,
+                        style: TextStyle(
+                          fontSize: 20,
+                          // Adjust font size and style as needed
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
               SizedBox(
-                height: 10,
+                height: 20,
                 child: Container(
-                  color: Colors.grey.shade100,
+                  color: Colors.white,
                 ),
               ),
-              SizedBox(height: 5),
-              SizedBox(
-                height: 10,
-                child: Container(
-                  color: Colors.grey.shade100,
-                ),
-              ),
+              // SizedBox(height: 5),
+              // SizedBox(
+              //   height: 10,
+              //   child: Container(
+              //     color: Colors.grey.shade100,
+              //   ),
+              // ),
               Expanded(
                 child: ListView(
                   shrinkWrap: true,
