@@ -103,7 +103,7 @@ class _ReviewPageState extends State<ReviewPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Community'),
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.red.shade300,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () async {

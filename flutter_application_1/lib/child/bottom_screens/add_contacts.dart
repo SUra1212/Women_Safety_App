@@ -60,7 +60,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Contact Page'),
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.red.shade300,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () async {

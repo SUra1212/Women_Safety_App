@@ -111,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.red.shade300,
         // backgroundColor: Color.fromARGB(255, 250, 163, 192),
         title: Text("UPDATE YOUR PROFILE"),
       ),

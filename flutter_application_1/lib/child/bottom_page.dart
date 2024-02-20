@@ -4,6 +4,7 @@ import 'package:flutter_application_1/child/bottom_screens/child_home_page.dart'
 import 'package:flutter_application_1/child/bottom_screens/councillors.dart';
 import 'package:flutter_application_1/child/bottom_screens/profile_page.dart';
 import 'package:flutter_application_1/child/bottom_screens/review_page.dart';
+import 'package:flutter_application_1/child/bottom_screens/self_defence.dart';
 
 class BottomPage extends StatefulWidget {
   BottomPage({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _BottomPageState extends State<BottomPage> {
     CheckUserStatusBeforeChatOnProfile(),
     CouncillorsPage(),
     ReviewPage(),
+    SelfDefence(),
   ];
   onTapped(int index) {
     setState(() {
@@ -35,9 +37,9 @@ class _BottomPageState extends State<BottomPage> {
         currentIndex: currentIndex,
         type: BottomNavigationBarType.fixed,
         onTap: onTapped,
-        backgroundColor: Colors.pink, // Change bottom bar color
-        selectedItemColor: Colors.black, // Change selected item color
-        unselectedItemColor: Colors.white, 
+        backgroundColor: Colors.red.shade300, // Change bottom bar color
+        selectedItemColor: Colors.white, // Change selected item color
+        unselectedItemColor: Colors.black,
         items: [
           BottomNavigationBarItem(
               label: 'home',
@@ -63,6 +65,11 @@ class _BottomPageState extends State<BottomPage> {
               label: 'Community',
               icon: Icon(
                 Icons.reviews,
+              )),
+          BottomNavigationBarItem(
+              label: 'Self',
+              icon: Icon(
+                Icons.girl,
               ))
         ],
       ),

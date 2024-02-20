@@ -138,7 +138,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                   style: TextStyle(
                                       fontSize: 40,
                                       fontWeight: FontWeight.bold,
-                                      color: primaryColor),
+                                      color: Colors.grey.shade600),
                                 ),
                                 Image.asset(
                                   'assets/logo.png',
@@ -181,7 +181,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                     },
                                     validate: (email) {
                                       if (email!.isEmpty || email.length < 10) {
-                                        return 'enter correct phone';
+                                        return 'Enter Correct Phone';
                                       }
                                       return null;
                                     },
@@ -256,7 +256,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                     },
                                   ),
                                   CustomTextField(
-                                    hintText: 'enter password',
+                                    hintText: 'Enter Password',
                                     isPassword: isPasswordShown,
                                     prefix: Icon(Icons.vpn_key_rounded),
                                     validate: (password) {
@@ -280,13 +280,16 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                             : Icon(Icons.visibility)),
                                   ),
                                   CustomTextField(
-                                    hintText: 'retype password',
+                                    hintText: 'Retype Password',
                                     isPassword: isRetypePasswordShown,
                                     prefix: Icon(Icons.vpn_key_rounded),
                                     validate: (password) {
-                                      if (password!.isEmpty ||
-                                          password.length < 7) {
-                                        return 'enter correct password';
+                                      // if (password!.isEmpty ||
+                                      //     password.length < 7) {
+                                      //   return 'Enter correct password';
+                                      // }
+                                      if (password != _formData['password']) {
+                                        return 'Passwords do not match';
                                       }
                                       return null;
                                     },
@@ -294,15 +297,16 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                       _formData['rpassword'] = password ?? "";
                                     },
                                     suffix: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            isRetypePasswordShown =
-                                                !isRetypePasswordShown;
-                                          });
-                                        },
-                                        icon: isRetypePasswordShown
-                                            ? Icon(Icons.visibility_off)
-                                            : Icon(Icons.visibility)),
+                                      onPressed: () {
+                                        setState(() {
+                                          isRetypePasswordShown =
+                                              !isRetypePasswordShown;
+                                        });
+                                      },
+                                      icon: isRetypePasswordShown
+                                          ? Icon(Icons.visibility_off)
+                                          : Icon(Icons.visibility),
+                                    ),
                                   ),
                                   PrimaryButton(
                                       title: 'REGISTER',

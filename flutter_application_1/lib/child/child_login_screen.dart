@@ -8,6 +8,7 @@ import 'package:flutter_application_1/components/custom_textfield.dart';
 import 'package:flutter_application_1/child/register_child.dart';
 import 'package:flutter_application_1/db/share_pref.dart';
 import 'package:flutter_application_1/utils/constants.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -61,10 +62,14 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       if (e.code == 'user-not-found') {
         dialogueBox(context, 'No user found for that email.');
+        print(e.code);
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
         dialogueBox(context, 'Wrong password provided for that user.');
         print('Wrong password provided for that user.');
+      } else if (e.message! == "The supplied auth credential is incorrect, malformed or has expired."){
+        Fluttertoast.showToast(msg: "Credential is incorrect");
+        print(e.message);
       }
     }
     print(_formData['email']);
@@ -108,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     style: TextStyle(
                                         fontSize: 40,
                                         fontWeight: FontWeight.bold,
-                                        color: primaryColor),
+                                        color: Colors.grey.shade600),
                                   ),
                                   Image.asset(
                                     'assets/logo.png',
@@ -127,32 +132,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     CustomTextField(
-                                      hintText: 'Enter email',
+                                      hintText: 'Enter Email',
                                       textInputAction: TextInputAction.next,
                                       keyboardtype: TextInputType.emailAddress,
                                       prefix: Icon(Icons.person),
                                       onsave: (email) {
                                         _formData['email'] = email ?? "";
                                       },
-                                      validate: (email) {
-                                        if (email!.isEmpty ||
-                                            email.length < 3 ||
-                                            !email.contains("@")) {
-                                          return 'Enter correct email';
-                                        }
-                                      },
                                     ),
                                     CustomTextField(
-                                      hintText: 'enter password',
+                                      hintText: 'Enter Password',
                                       isPassword: isPasswordShown,
                                       prefix: Icon(Icons.vpn_key_rounded),
-                                      validate: (password) {
-                                        if (password!.isEmpty ||
-                                            password.length < 7) {
-                                          return 'enter corect password';
-                                        }
-                                        return null;
-                                      },
                                       onsave: (password) {
                                         _formData['password'] = password ?? "";
                                       },
