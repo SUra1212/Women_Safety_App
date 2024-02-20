@@ -18,7 +18,17 @@ class _ReviewPageState extends State<ReviewPage> {
   TextEditingController namecC = TextEditingController();
   bool isSaving = false;
 
+  bool validateFields() {
+    if (namecC.text.isEmpty || viewsC.text.isEmpty) {
+      Fluttertoast.showToast(msg: 'Please fill all fields');
+      return false;
+    }
+    return true;
+  }
+
   showAlert(BuildContext context) {
+    namecC.clear();
+    viewsC.clear();
     showDialog(
         context: context,
         builder: (_) {
@@ -52,8 +62,10 @@ class _ReviewPageState extends State<ReviewPage> {
               PrimaryButton(
                 title: "SAVE",
                 onPressed: () {
-                  saveReview();
-                  Navigator.pop(context);
+                  if (validateFields()) {
+                    saveReview();
+                    Navigator.pop(context); // Close the AlertDialog
+                  }
                 },
               ),
               TextButton(
@@ -68,13 +80,17 @@ class _ReviewPageState extends State<ReviewPage> {
   }
 
   saveReview() async {
+    if (namecC.text.isEmpty || viewsC.text.isEmpty) {
+      Fluttertoast.showToast(msg: 'Please fill all fields');
+      return;
+    }
+
     setState(() {
       isSaving = true;
     });
-    await FirebaseFirestore.instance.collection('reviews').add({
-      'name': namecC.text,
-      'views': viewsC.text
-    }).then((value) {
+    await FirebaseFirestore.instance
+        .collection('reviews')
+        .add({'name': namecC.text, 'views': viewsC.text}).then((value) {
       setState(() {
         isSaving = false;
         Fluttertoast.showToast(msg: 'Story Save Successfully');
@@ -102,7 +118,20 @@ class _ReviewPageState extends State<ReviewPage> {
       ),
       body: isSaving == true
           ? Center(child: CircularProgressIndicator())
-          : SafeArea(
+          : Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/review.jpg"),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    Colors.white
+                        .withOpacity(0.5), // Adjust the opacity value as needed
+                    BlendMode.srcOver,
+                  ),
+                ),
+              ),
               child: Column(
                 children: [
                   Expanded(
@@ -121,9 +150,10 @@ class _ReviewPageState extends State<ReviewPage> {
                           itemBuilder: (BuildContext context, int index) {
                             final data = snapshot.data!.docs[index];
                             return Padding(
-                              padding: const EdgeInsets.all(3.0),
+                              padding: const EdgeInsets.all(5.0),
                               child: Card(
-                                elevation: 10,
+                                color: Colors.pink.shade100,
+                                elevation: 5,
                                 // color: Colors.primaries[Random().nextInt(17)],
                                 child: ListTile(
                                   title: Column(
@@ -135,7 +165,6 @@ class _ReviewPageState extends State<ReviewPage> {
                                         style: TextStyle(
                                             fontSize: 20, color: Colors.black),
                                       ),
-                                
                                     ],
                                   ),
                                   subtitle: Text(data['views']),

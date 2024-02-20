@@ -104,7 +104,20 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/bgimage.jpeg"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.white
+                  .withOpacity(0.5), // Adjust the opacity value as needed
+              BlendMode.srcOver,
+            ),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Stack(
