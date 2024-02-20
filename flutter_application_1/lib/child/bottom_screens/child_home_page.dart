@@ -18,10 +18,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // const HomeScreen({super.key});
   int qIndex = 0;
-  Position? _curentPosition;
-  String? _curentAddress;
+  Position? _currentPosition;
+  String? _currentAddress;
   LocationPermission? permission;
   _getPermission() async => await [Permission.sms].request();
   _isPermissionGranted() async => await Permission.sms.status.isGranted;
@@ -57,16 +56,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _getCurrentLocation() async {
     final hasPermission = await _handleLocationPermission();
-    //final Telephony telephony = Telephony.instance;
-    //await telephony.requestPhoneAndSmsPermissions;
     if (!hasPermission) return;
     await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high,
             forceAndroidLocationManager: true)
         .then((Position position) {
       setState(() {
-        _curentPosition = position;
-        print(_curentPosition!.latitude);
+        _currentPosition = position;
         _getAddressFromLatLon();
       });
     }).catchError((e) {
@@ -77,11 +73,11 @@ class _HomeScreenState extends State<HomeScreen> {
   _getAddressFromLatLon() async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
-          _curentPosition!.latitude, _curentPosition!.longitude);
+          _currentPosition!.latitude, _currentPosition!.longitude);
 
       Placemark place = placemarks[0];
       setState(() {
-        _curentAddress =
+        _currentAddress =
             "${place.locality},${place.postalCode},${place.street},";
       });
     } catch (e) {
@@ -100,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<TContact> contactList = await DatabaseHelper().getContactList();
 
     String messageBody =
-        "https://maps.google.com/?daddr=${_curentPosition!.latitude},${_curentPosition!.longitude}";
+        "https://maps.google.com/?daddr=${_currentPosition!.latitude},${_currentPosition!.longitude}";
     if (await _isPermissionGranted()) {
       contactList.forEach((element) {
         // _sendSms("${element.number}", "i am in trouble $messageBody");
@@ -112,15 +108,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-     _getCurrentLocation();
+    _getCurrentLocation();
     getRandomQuote();
     super.initState();
     _getPermission();
+  }
 
-    ////// shake feature ///
-
-    // To close: detector.stopListening();
-    // ShakeDetector.waitForStart() waits for user to call detector.startListening();
+  void _showImagesBasedOnEmoji(String emoji) {
+    // Logic to show different images based on the selected emoji
+    switch (emoji) {
+      case "😊": // Happy emoji
+        // Show images related to happiness
+        break;
+      case "😢": // Sad emoji
+        // Show images related to sadness
+        break;
+      case "🥰": // Loved emoji
+        // Show images related to love
+        break;
+      case "😡": // Angry emoji
+        // Show images related to anger
+        break;
+      default:
+        // Show a default set of images or do nothing
+        break;
+    }
   }
 
   @override
@@ -139,12 +151,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(height: 5),
-              CustomAppBar(
-                  quoteIndex: qIndex,
-                  onTap: () {
-                    getRandomQuote();
-                  }),
-              SizedBox(height: 5),
               SizedBox(
                 height: 10,
                 child: Container(
@@ -157,14 +163,92 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     SafeHome(),
                     SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Text(
+                          "How do you feel today?",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'sans-serif',
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            _showImagesBasedOnEmoji("😊");
+                          },
+                          child: Text(
+                            "😊", // Happy emoji
+                            style: TextStyle(fontSize: 50),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        GestureDetector(
+                          onTap: () {
+                            _showImagesBasedOnEmoji("😢");
+                          },
+                          child: Text(
+                            "😢", // Sad emoji
+                            style: TextStyle(fontSize: 50),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        GestureDetector(
+                          onTap: () {
+                            _showImagesBasedOnEmoji("❤️");
+                          },
+                          child: Text(
+                            "❤️", // Loved emoji
+                            style: TextStyle(fontSize: 50),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        GestureDetector(
+                          onTap: () {
+                            _showImagesBasedOnEmoji("😡");
+                          },
+                          child: Text(
+                            "😡", // Angry emoji
+                            style: TextStyle(fontSize: 50),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (_currentPosition != null)
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 20),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Your Current Address:",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(_currentAddress ?? "Loading address..."),
+                          ],
+                        ),
+                      ),
+                    SizedBox(height: 10),
+                    CustomCarouel(),
+                    SizedBox(height: 10),
                     Align(
                       alignment: Alignment.center,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Incase of emergency dial me",
+                          "In case of emergency, dial me",
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'sans-serif',
+                          ),
                         ),
                       ),
                     ),
@@ -175,29 +259,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Explore your power",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    CustomCarouel(),
-                    SizedBox(height: 10),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
                           "Explore LiveSafe",
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'sans-serif',
+                          ),
                         ),
                       ),
                     ),
                     SizedBox(height: 10),
                     LiveSafe(),
-                    // SafeHome(),
                   ],
                 ),
               ),
