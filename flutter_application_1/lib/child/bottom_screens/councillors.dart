@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/child/bottom_page.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -91,7 +92,24 @@ class _CouncillorsPageState extends State<CouncillorsPage> {
 
   bool isSaving = false;
 
+bool validateFields() {
+  if (namecC.text.isEmpty || phoneC.text.isEmpty || typeC.text.isEmpty || viewsC.text.isEmpty) {
+    Fluttertoast.showToast(msg: 'Please fill all fields');
+    return false;
+  } else if (phoneC.text.length < 10) {
+    Fluttertoast.showToast(msg: 'Please add correct phone number');
+    return false;
+  }
+  return true;
+}
+
+
   showAlert(BuildContext context) {
+    namecC.clear();
+    phoneC.clear();
+    typeC.clear();
+    viewsC.clear();
+
     showDialog(
         context: context,
         builder: (_) {
@@ -114,14 +132,9 @@ class _CouncillorsPageState extends State<CouncillorsPage> {
                       child: CustomTextField(
                         hintText: 'Enter Councillor Phone',
                         controller: phoneC,
-                        validate: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              value.length < 10) {
-                            return 'Please enter a valid phone number';
-                          }
-                          return null;
-                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                       ),
                     ),
                     Padding(
@@ -147,8 +160,10 @@ class _CouncillorsPageState extends State<CouncillorsPage> {
               PrimaryButton(
                 title: "SAVE",
                 onPressed: () {
-                  saveReview();
-                  Navigator.pop(context);
+                  if (validateFields()) {
+                    saveReview();
+                    Navigator.pop(context); // Close the AlertDialog
+                  }
                 },
               ),
               TextButton(
@@ -163,6 +178,14 @@ class _CouncillorsPageState extends State<CouncillorsPage> {
   }
 
   saveReview() async {
+    if (namecC.text.isEmpty ||
+        phoneC.text.isEmpty ||
+        typeC.text.isEmpty ||
+        viewsC.text.isEmpty) {
+      Fluttertoast.showToast(msg: 'Please fill all fields');
+      return;
+    }
+
     setState(() {
       isSaving = true;
     });
@@ -230,9 +253,10 @@ class _CouncillorsPageState extends State<CouncillorsPage> {
                           itemBuilder: (BuildContext context, int index) {
                             final data = snapshot.data!.docs[index];
                             return Padding(
-                              padding: const EdgeInsets.all(3.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: Card(
-                                elevation: 10,
+                                color: Colors.pink.shade100,
+                                elevation: 5,
                                 // color: Colors.primaries[Random().nextInt(17)],
                                 child: ListTile(
                                   title: Column(
@@ -247,7 +271,7 @@ class _CouncillorsPageState extends State<CouncillorsPage> {
                                       Text(
                                         data['type'],
                                         style: TextStyle(
-                                            fontSize: 20, color: Colors.grey),
+                                            fontSize: 20, color: Colors.black54),
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -258,7 +282,7 @@ class _CouncillorsPageState extends State<CouncillorsPage> {
                                           data['phone'],
                                           style: TextStyle(
                                             fontSize: 20,
-                                            color: Colors.grey,
+                                            color: Colors.black54,
                                             decoration: TextDecoration
                                                 .underline, // Optional: add underline to indicate it's tappable
                                           ),

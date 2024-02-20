@@ -35,6 +35,9 @@ class _BottomPageState extends State<BottomPage> {
         currentIndex: currentIndex,
         type: BottomNavigationBarType.fixed,
         onTap: onTapped,
+        backgroundColor: Colors.pink, // Change bottom bar color
+        selectedItemColor: Colors.black, // Change selected item color
+        unselectedItemColor: Colors.white, 
         items: [
           BottomNavigationBarItem(
               label: 'home',
