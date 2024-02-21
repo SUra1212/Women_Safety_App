@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.all(10),
         child: Text(
           emoji,
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(fontSize: 40),
         ),
       ),
     );
@@ -61,32 +61,32 @@ class _HomeScreenState extends State<HomeScreen> {
       return Column(
         children: [
           Text('Happy Images:'),
-          // Add your happy images here
+          // happy images 
         ],
       );
     } else if (selectedEmoji == '😢') {
       return Column(
         children: [
           Text('Sad Images:'),
-          // Add your sad images here
+          // sad images 
         ],
       );
-    } else if (selectedEmoji == '❤️') {
+    } else if (selectedEmoji == '🥰') {
       return Column(
         children: [
           Text('Love Images:'),
-          // Add your love images here
+          // love images
         ],
       );
     } else if (selectedEmoji == '😡') {
       return Column(
         children: [
           Text('Angry Images:'),
-          // Add your angry images here
+          // angry images 
         ],
       );
     } else {
-      return Container(); // Return empty container if no emoji is selected
+      return Container(); 
     }
   }
 
@@ -197,13 +197,12 @@ class _HomeScreenState extends State<HomeScreen> {
     getDate();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-           actions: <Widget>[
+        actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.comment),
             tooltip: 'Comment Icon',
@@ -215,7 +214,6 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {},
           ), //IconButton
         ],
-        
         titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 60.2,
@@ -232,7 +230,6 @@ class _HomeScreenState extends State<HomeScreen> {
           tooltip: 'Menu Icon',
           onPressed: () {},
         ),
-
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: SafeArea(
@@ -277,14 +274,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         "Hi",
                         style: TextStyle(
                           fontSize: 16,
-                          // Adjust font size and style as needed
                         ),
                       ),
                       Text(
                         nameC.text,
                         style: TextStyle(
                           fontSize: 20,
-                          // Adjust font size and style as needed
                         ),
                       ),
                     ],
@@ -323,14 +318,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _buildEmojiButton('😊', []),
                         _buildEmojiButton('😢', []),
-                        _buildEmojiButton('❤️', []),
+                        _buildEmojiButton('🥰', []),
                         _buildEmojiButton('😡', []),
                       ],
-                       
                     ),
                     SizedBox(height: 20),
                     _displayImages(),

@@ -168,6 +168,7 @@ class _SafeHomeState extends State<SafeHome> {
         elevation: 5,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
+          side: BorderSide(color: const Color.fromARGB(255, 255, 136, 128), width: 2),
         ),
         child: Container(
           height: 180,
@@ -194,17 +195,27 @@ class _SafeHomeState extends State<SafeHome> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Align(
-                            child: Text(
-                              "Share location Now!",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                fontFamily: 'sans-serif',
+                            child: Container(
+                              margin: EdgeInsets.only(top: 40),
+                              child: Text(
+                                "📌 Share location Now!",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25,
+                                  fontFamily: 'sans-serif',
+                                ),
                               ),
                             ),
                           ),
                           SizedBox(
                             height: 8,
+                          ),
+                          Text(
+                            "Tap to share current location",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'sans-serif',
+                            ),
                           ),
                         ],
                       ),
