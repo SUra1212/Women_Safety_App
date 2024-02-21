@@ -31,12 +31,64 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _currentAddress;
   LocationPermission? permission;
   TextEditingController nameC = TextEditingController();
+  String selectedEmoji = '';
 
   String? id;
   String? profilePic;
 
   _getPermission() async => await [Permission.sms].request();
   _isPermissionGranted() async => await Permission.sms.status.isGranted;
+
+  Widget _buildEmojiButton(String emoji, List<String> images) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedEmoji = emoji;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Text(
+          emoji,
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
+
+  Widget _displayImages() {
+    if (selectedEmoji == '😊') {
+      return Column(
+        children: [
+          Text('Happy Images:'),
+          // Add your happy images here
+        ],
+      );
+    } else if (selectedEmoji == '😢') {
+      return Column(
+        children: [
+          Text('Sad Images:'),
+          // Add your sad images here
+        ],
+      );
+    } else if (selectedEmoji == '❤️') {
+      return Column(
+        children: [
+          Text('Love Images:'),
+          // Add your love images here
+        ],
+      );
+    } else if (selectedEmoji == '😡') {
+      return Column(
+        children: [
+          Text('Angry Images:'),
+          // Add your angry images here
+        ],
+      );
+    } else {
+      return Container(); // Return empty container if no emoji is selected
+    }
+  }
 
   getDate() async {
     await FirebaseFirestore.instance
@@ -145,26 +197,6 @@ class _HomeScreenState extends State<HomeScreen> {
     getDate();
   }
 
-  void _showImagesBasedOnEmoji(String emoji) {
-    // Logic to show different images based on the selected emoji
-    switch (emoji) {
-      case "😊": // Happy emoji
-        // Show images related to happiness
-        break;
-      case "😢": // Sad emoji
-        // Show images related to sadness
-        break;
-      case "🥰": // Loved emoji
-        // Show images related to love
-        break;
-      case "😡": // Angry emoji
-        // Show images related to anger
-        break;
-      default:
-        // Show a default set of images or do nothing
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -291,49 +323,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            _showImagesBasedOnEmoji("😊");
-                          },
-                          child: Text(
-                            "😊", // Happy emoji
-                            style: TextStyle(fontSize: 50),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        GestureDetector(
-                          onTap: () {
-                            _showImagesBasedOnEmoji("😢");
-                          },
-                          child: Text(
-                            "😢", // Sad emoji
-                            style: TextStyle(fontSize: 50),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        GestureDetector(
-                          onTap: () {
-                            _showImagesBasedOnEmoji("❤️");
-                          },
-                          child: Text(
-                            "❤️", // Loved emoji
-                            style: TextStyle(fontSize: 50),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        GestureDetector(
-                          onTap: () {
-                            _showImagesBasedOnEmoji("😡");
-                          },
-                          child: Text(
-                            "😡", // Angry emoji
-                            style: TextStyle(fontSize: 50),
-                          ),
-                        ),
+                        _buildEmojiButton('😊', []),
+                        _buildEmojiButton('😢', []),
+                        _buildEmojiButton('❤️', []),
+                        _buildEmojiButton('😡', []),
                       ],
+                       
                     ),
+                    SizedBox(height: 20),
+                    _displayImages(),
                     if (_currentPosition != null)
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 20),
