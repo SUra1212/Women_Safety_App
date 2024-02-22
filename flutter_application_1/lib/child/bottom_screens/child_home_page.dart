@@ -60,34 +60,113 @@ class _HomeScreenState extends State<HomeScreen> {
     if (selectedEmoji == '😊') {
       return Column(
         children: [
-          Text('Happy Images:'),
-          // happy images 
+          SizedBox(height: 10),
+          _buildImageWithDescription(
+            topic: 'Self-Care and Wellness',
+            imagePath: 'assets/h1.png',
+            description:
+                'Happiness starts from within. Discover self-care practices that nourish your mind, body, and soul. Engage in activities like meditation, yoga, or a leisurely walk in nature. Prioritize your well-being and make time for activities that bring you joy and rejuvenation.',
+            
+          ),
+          SizedBox(height: 10),
+          _buildImageWithDescription(
+            topic: 'Positive Affirmations and Self-Reflection',
+            imagePath: 'assets/h2.jpg',
+            description: ' Embrace the power of positive affirmations to nurture a happy mindset. Practice self-reflection and cultivate a deep sense of self-acceptance and appreciation. Affirm your worthiness, strengths, and capabilities daily. Remember, you are deserving of happiness and all the good things life has to offer.',
+            
+          ),
         ],
       );
     } else if (selectedEmoji == '😢') {
       return Column(
         children: [
-          Text('Sad Images:'),
-          // sad images 
+            SizedBox(height: 10),
+          _buildImageWithDescription(
+            topic: 'Seeking Support and Connection',
+            imagePath: 'assets/s1.png',
+            description:
+                ' You\'re not alone in your struggles! Reach out to trusted friends, family members, or support networks for comfort and companionship. Sharing your feelings with others can provide validation and a sense of relief. Don\'t hesitate to lean on your support system during difficult times. ',
+          ),
+          SizedBox(height: 10),
+          _buildImageWithDescription(
+            topic: 'Engaging in Activities that Bring Joy',
+            imagePath: 'assets/s2.jpg',
+            description:
+                ' Rediscover activities that bring a smile to your face and lift your spirits. Whether it\'s listening to uplifting music, watching a favorite movie, or engaging in a hobby you love, make time for things that nourish your soul. Even small moments of joy can help alleviate sadness.',
+          ),
         ],
       );
     } else if (selectedEmoji == '🥰') {
       return Column(
         children: [
-          Text('Love Images:'),
-          // love images
+            SizedBox(height: 10),
+          _buildImageWithDescription(
+            topic: 'Building Healthy Relationships',
+            imagePath: 'assets/l1.jpg',
+            description:
+                ' Cultivate and cherish healthy relationships in your life. Invest time and effort in fostering meaningful connections with friends, family, and loved ones. Communicate openly, listen with empathy, and show appreciation for the people who bring love and joy into your life. Healthy relationships are a source of strength and happiness.',
+          ),
+          SizedBox(height: 10),
+          _buildImageWithDescription(
+            topic: 'Practicing Forgiveness and Letting Go',
+            imagePath: 'assets/l2.jpg',
+            description:
+                'Love thrives in an environment of forgiveness and acceptance. Practice letting go of grudges, resentment, and past hurts that weigh you down. Extend compassion and forgiveness to yourself and others, recognizing that we are all imperfect beings on a journey of growth and learning. ',
+          ),
         ],
       );
     } else if (selectedEmoji == '😡') {
       return Column(
         children: [
-          Text('Angry Images:'),
-          // angry images 
+            SizedBox(height: 10),
+          _buildImageWithDescription(
+            topic: 'Anger Management Techniques',
+            imagePath: 'assets/a1.png',
+            description:
+                ' Explore effective strategies for managing anger and diffusing intense emotions. Practice deep breathing exercises, progressive muscle relaxation, or mindfulness meditation to calm your mind and body.',
+          ),
+          SizedBox(height: 10),
+          _buildImageWithDescription(
+            topic: 'Understanding Anger Triggers',
+            imagePath: 'assets/a2.png',
+            description:
+                'Gain insight into the underlying triggers and root causes of your anger. Explore past experiences, beliefs, and patterns that contribute to feelings of frustration and resentment. By identifying and addressing the source of your anger, you can develop proactive strategies for managing triggers and preventing escalation in the future. ',
+          ),
         ],
       );
     } else {
-      return Container(); 
+      return Container();
     }
+  }
+
+  Widget _buildImageWithDescription({
+    required String topic,
+    required String description,
+    required String imagePath,
+  }) {
+    return Column(
+      children: [
+        Text(
+          topic,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        SizedBox(height: 5),
+        Image.asset(
+          imagePath,
+          width: 200, 
+          height: 150,
+          fit: BoxFit.cover,
+        ),
+        SizedBox(height: 10),
+        Text(
+          description,
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
   }
 
   getDate() async {
@@ -329,21 +408,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(height: 20),
                     _displayImages(),
                     if (_currentPosition != null)
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 20),
-                        child: Column(
-                          children: [
-                            Text(
-                              "Your Current Address:",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(_currentAddress ?? "Loading address..."),
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   margin: EdgeInsets.symmetric(vertical: 20),
+                      //   child: Column(
+                      //     children: [
+                      //       Text(
+                      //         "Your Current Address:",
+                      //         style: TextStyle(
+                      //           fontSize: 18,
+                      //           fontWeight: FontWeight.bold,
+                      //         ),
+                      //       ),
+                      //       Text(_currentAddress ?? "Loading address..."),
+                      //     ],
+                      //   ),
+                      // ),
                     SizedBox(height: 10),
                     CustomCarouel(),
                     SizedBox(height: 10),
