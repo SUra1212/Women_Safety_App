@@ -66,21 +66,20 @@ class _HomeScreenState extends State<HomeScreen> {
             imagePath: 'assets/h1.png',
             description:
                 'Happiness starts from within. Discover self-care practices that nourish your mind, body, and soul. Engage in activities like meditation, yoga, or a leisurely walk in nature. Prioritize your well-being and make time for activities that bring you joy and rejuvenation.',
-            
           ),
           SizedBox(height: 10),
           _buildImageWithDescription(
             topic: 'Positive Affirmations and Self-Reflection',
             imagePath: 'assets/h2.jpg',
-            description: ' Embrace the power of positive affirmations to nurture a happy mindset. Practice self-reflection and cultivate a deep sense of self-acceptance and appreciation. Affirm your worthiness, strengths, and capabilities daily. Remember, you are deserving of happiness and all the good things life has to offer.',
-            
+            description:
+                ' Embrace the power of positive affirmations to nurture a happy mindset. Practice self-reflection and cultivate a deep sense of self-acceptance and appreciation. Affirm your worthiness, strengths, and capabilities daily. Remember, you are deserving of happiness and all the good things life has to offer.',
           ),
         ],
       );
     } else if (selectedEmoji == '😢') {
       return Column(
         children: [
-            SizedBox(height: 10),
+          SizedBox(height: 10),
           _buildImageWithDescription(
             topic: 'Seeking Support and Connection',
             imagePath: 'assets/s1.png',
@@ -99,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else if (selectedEmoji == '🥰') {
       return Column(
         children: [
-            SizedBox(height: 10),
+          SizedBox(height: 10),
           _buildImageWithDescription(
             topic: 'Building Healthy Relationships',
             imagePath: 'assets/l1.jpg',
@@ -118,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else if (selectedEmoji == '😡') {
       return Column(
         children: [
-            SizedBox(height: 10),
+          SizedBox(height: 10),
           _buildImageWithDescription(
             topic: 'Anger Management Techniques',
             imagePath: 'assets/a1.png',
@@ -156,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SizedBox(height: 5),
         Image.asset(
           imagePath,
-          width: 200, 
+          width: 200,
           height: 150,
           fit: BoxFit.cover,
         ),
@@ -320,11 +319,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin:
-                        EdgeInsets.only(right: 10), // Adjust margin as needed
+                    margin: EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.grey[200],
+                    ),
                     child: profilePic == null
                         ? CircleAvatar(
-                            backgroundColor: Colors.deepPurple,
+                            backgroundColor: Colors.transparent,
                             radius: 30,
                             child: Center(
                               child: Image.asset(
@@ -336,35 +339,42 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         : profilePic!.contains('http')
                             ? CircleAvatar(
-                                backgroundColor: Colors.deepPurple,
                                 radius: 30,
                                 backgroundImage: NetworkImage(profilePic!),
+                                backgroundColor: Colors.transparent,
                               )
                             : CircleAvatar(
-                                backgroundColor: Colors.deepPurple,
                                 radius: 30,
                                 backgroundImage: FileImage(File(profilePic!)),
+                                backgroundColor: Colors.transparent,
                               ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(height: 10),
                       Text(
-                        "Hi",
+                        "Hi,",
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 13,
+                          color: Colors.black87,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
+                      SizedBox(height: 5),
                       Text(
                         nameC.text,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
+
               SizedBox(
                 height: 20,
                 child: Container(
@@ -423,7 +433,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       //     ],
                       //   ),
                       // ),
-                    SizedBox(height: 10),
+                      SizedBox(height: 10),
                     CustomCarouel(),
                     SizedBox(height: 10),
                     Align(
