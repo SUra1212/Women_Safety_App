@@ -26,9 +26,9 @@ class PoliceEmergency extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Color(0xFFFD8080),
-                    Color(0xFFFB8580),
-                    Color(0xFFFBD079),
+                    const Color.fromARGB(255, 148, 8, 8),
+                    const Color.fromARGB(255, 214, 42, 42),
+                    const Color.fromARGB(255, 245, 92, 92),
                   ],
                 )),
             child: Padding(
@@ -39,7 +39,7 @@ class PoliceEmergency extends StatelessWidget {
                   CircleAvatar(
                     radius: 25,
                     backgroundColor: Colors.white.withOpacity(0.5),
-                    child: Image.asset('assets/alert.png'),
+                    child: Image.asset('assets/ealarm.png'),
                   ),
                   Expanded(
                     child: Column(
@@ -72,7 +72,7 @@ class PoliceEmergency extends StatelessWidget {
                             child: Text(
                               '0-1-5',
                               style: TextStyle(
-                                color: Colors.red[300],
+                                color: const Color.fromARGB(255, 148, 8, 8),
                                 fontWeight: FontWeight.bold,
                                 fontSize:
                                     MediaQuery.of(context).size.width * 0.055,

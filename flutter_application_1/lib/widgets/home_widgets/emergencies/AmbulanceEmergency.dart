@@ -26,9 +26,9 @@ class AmbulanceEmergency extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Color(0xFFFD8080),
-                    Color(0xFFFB8580),
-                    Color(0xFFFBD079),
+                    Color.fromARGB(255, 18, 103, 11),
+                    Color.fromARGB(255, 21, 182, 123),
+                    Color.fromARGB(255, 11, 71, 175),
                   ],
                 )),
             child: Padding(
@@ -38,8 +38,8 @@ class AmbulanceEmergency extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 25,
-                    backgroundColor: Colors.white.withOpacity(0.5),
-                    child: Image.asset('assets/ambulance.png'),
+                    backgroundColor: Color.fromARGB(255, 110, 234, 105).withOpacity(0.9),
+                    child: Image.asset('assets/amb.png'),
                   ),
                   Expanded(
                     child: Column(
@@ -55,7 +55,7 @@ class AmbulanceEmergency extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'In case of medical emergency call',
+                          'Medical emergency',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: MediaQuery.of(context).size.width * 0.045,
@@ -72,10 +72,10 @@ class AmbulanceEmergency extends StatelessWidget {
                             child: Text(
                               '1 -1 -2 -2',
                               style: TextStyle(
-                                color: Colors.red[300],
+                                color: Color.fromARGB(255, 18, 103, 11),
                                 fontWeight: FontWeight.bold,
                                 fontSize:
-                                    MediaQuery.of(context).size.width * 0.055,
+                                    MediaQuery.of(context).size.width * 0.050,
                               ),
                             ),
                           ),

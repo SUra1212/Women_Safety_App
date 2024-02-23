@@ -374,26 +374,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-
               SizedBox(
                 height: 20,
                 child: Container(
                   color: Colors.white,
                 ),
               ),
-              // SizedBox(height: 5),
-              // SizedBox(
-              //   height: 10,
-              //   child: Container(
-              //     color: Colors.grey.shade100,
-              //   ),
-              // ),
               Expanded(
                 child: ListView(
                   shrinkWrap: true,
                   children: [
                     SafeHome(),
-                    SizedBox(height: 10),
+                    SizedBox(height: 40),
                     Row(
                       children: [
                         Text(
@@ -415,27 +407,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         _buildEmojiButton('😡', []),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 5),
                     _displayImages(),
-                    if (_currentPosition != null)
-                      // Container(
-                      //   margin: EdgeInsets.symmetric(vertical: 20),
-                      //   child: Column(
-                      //     children: [
-                      //       Text(
-                      //         "Your Current Address:",
-                      //         style: TextStyle(
-                      //           fontSize: 18,
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //       Text(_currentAddress ?? "Loading address..."),
-                      //     ],
-                      //   ),
-                      // ),
-                      SizedBox(height: 10),
+                    if (_currentPosition != null) SizedBox(height: 40),
                     CustomCarouel(),
-                    SizedBox(height: 10),
+                    SizedBox(height: 40),
                     Align(
                       alignment: Alignment.center,
                       child: Padding(

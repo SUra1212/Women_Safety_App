@@ -26,9 +26,9 @@ class ArmyEmergency extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Color(0xFFFD8080),
-                    Color(0xFFFB8580),
-                    Color(0xFFFBD079),
+                    Color.fromARGB(255, 0, 80, 32),
+                    Color.fromARGB(255, 19, 98, 41),
+                    Color.fromARGB(255, 96, 152, 116),
                   ],
                 )),
             child: Padding(
@@ -38,7 +38,7 @@ class ArmyEmergency extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 25,
-                    backgroundColor: Colors.white.withOpacity(0.5),
+                    backgroundColor: Color.fromARGB(255, 172, 255, 175).withOpacity(0.9),
                     child: Image.asset('assets/army.png'),
                   ),
                   Expanded(
@@ -55,7 +55,7 @@ class ArmyEmergency extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'National counter Terrorsim Authority',
+                          'Counterterrorism Agency',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: MediaQuery.of(context).size.width * 0.045,
@@ -72,7 +72,7 @@ class ArmyEmergency extends StatelessWidget {
                             child: Text(
                               '1 -7 -1 -7',
                               style: TextStyle(
-                                color: Colors.red[300],
+                                color: Color.fromARGB(255, 0, 80, 32),
                                 fontWeight: FontWeight.bold,
                                 fontSize:
                                     MediaQuery.of(context).size.width * 0.050,

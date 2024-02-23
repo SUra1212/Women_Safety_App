@@ -26,9 +26,9 @@ class FirebrigadeEmergency extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Color(0xFFFD8080),
-                    Color(0xFFFB8580),
-                    Color(0xFFFBD079),
+                    Color.fromARGB(255, 176, 73, 5),
+                    Color.fromARGB(255, 218, 58, 53),
+                    Color.fromARGB(255, 234, 174, 56),
                   ],
                 )),
             child: Padding(
@@ -38,8 +38,8 @@ class FirebrigadeEmergency extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 25,
-                    backgroundColor: Colors.white.withOpacity(0.5),
-                    child: Image.asset('assets/flame.png'),
+                    backgroundColor: Color.fromARGB(255, 234, 187, 125).withOpacity(0.9),
+                    child: Image.asset('assets/fire.png'),
                   ),
                   Expanded(
                     child: Column(
@@ -55,7 +55,7 @@ class FirebrigadeEmergency extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'In case of fire emergency call',
+                          'Fire emergency',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: MediaQuery.of(context).size.width * 0.045,
@@ -72,7 +72,7 @@ class FirebrigadeEmergency extends StatelessWidget {
                             child: Text(
                               '0 -1 -6',
                               style: TextStyle(
-                                color: Colors.red[300],
+                                color: Color.fromARGB(255, 176, 73, 5),
                                 fontWeight: FontWeight.bold,
                                 fontSize:
                                     MediaQuery.of(context).size.width * 0.055,
