@@ -196,19 +196,19 @@ class _SafeHomeState extends State<SafeHome> {
                         children: [
                           Align(
                             child: Container(
-                              margin: EdgeInsets.only(top: 40),
+                              margin: EdgeInsets.only(top: 30),
                               child: Text(
                                 "📌 Share location Now!",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 25,
+                                  fontSize: 20,
                                   fontFamily: 'sans-serif',
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(
-                            height: 8,
+                            height: 4,
                           ),
                           Text(
                             "Tap to share current location",

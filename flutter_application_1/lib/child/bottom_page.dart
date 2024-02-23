@@ -192,7 +192,7 @@ class _BottomPageState extends State<BottomPage> {
           });
         },
         tooltip: 'Home',
-        child: Icon(Icons.home),
+        child: Icon(Icons.home, color: Colors.black),
         // elevation: 2.0,
         backgroundColor: Colors.red.shade300,
       ),
