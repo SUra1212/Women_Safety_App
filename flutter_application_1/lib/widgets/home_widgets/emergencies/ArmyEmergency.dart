@@ -38,7 +38,8 @@ class ArmyEmergency extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 25,
-                    backgroundColor: Color.fromARGB(255, 172, 255, 175).withOpacity(0.9),
+                    backgroundColor:
+                        Color.fromARGB(255, 172, 255, 175).withOpacity(0.9),
                     child: Image.asset('assets/army.png'),
                   ),
                   Expanded(
@@ -47,7 +48,7 @@ class ArmyEmergency extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'NACTA',
+                          'Army Emergency',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
