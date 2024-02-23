@@ -427,13 +427,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Emergency(),
-                    SizedBox(height: 10),
+                    SizedBox(height: 30),
                     Align(
                       alignment: Alignment.center,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Explore LiveSafe",
+                          "Explore Locations",
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -442,8 +442,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
                     LiveSafe(),
+                    
                   ],
                 ),
               ),
