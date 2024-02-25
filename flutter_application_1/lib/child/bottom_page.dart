@@ -73,7 +73,19 @@ class _BottomPageState extends State<BottomPage> {
               ),
             ),
 
-            SizedBox(width: 40.0),
+            SizedBox(width: 20.0),
+            FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  currentIndex = 0;
+                });
+              },
+              tooltip: 'Home',
+              child: Icon(Icons.home, color: Colors.black),
+              // elevation: 2.0,
+              backgroundColor: Colors.red.shade300,
+            ),
+            SizedBox(width: 20.0),
             IconButton(
               icon: Icon(
                 Icons.psychology_alt,
@@ -111,17 +123,6 @@ class _BottomPageState extends State<BottomPage> {
           ],
         ),
         color: Colors.red.shade300,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            currentIndex = 0;
-          });
-        },
-        tooltip: 'Home',
-        child: Icon(Icons.home, color: Colors.black),
-        // elevation: 2.0,
-        backgroundColor: Colors.red.shade300,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
