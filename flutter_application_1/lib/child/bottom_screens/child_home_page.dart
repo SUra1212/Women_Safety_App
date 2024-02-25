@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_application_1/child/bottom_screens/self_defence.dart';
 import 'package:flutter_application_1/components/custom_textfield.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
@@ -38,6 +39,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _getPermission() async => await [Permission.sms].request();
   _isPermissionGranted() async => await Permission.sms.status.isGranted;
+
+  void _navigateToSelfDefensePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              SelfDefence()), // Navigate to the SelfDefence page
+    );
+  }
 
   Widget _buildEmojiButton(String emoji, List<String> images) {
     return GestureDetector(
@@ -352,26 +362,50 @@ class _HomeScreenState extends State<HomeScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10),
-                      Text(
-                        "Hi,",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                       SizedBox(height: 5),
-                      Text(
-                        nameC.text,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                      Row(
+                        children: [
+                          Text(
+                            "Hi,",
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(width: 150),
+                          ElevatedButton(
+                            onPressed: _navigateToSelfDefensePage,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    8), 
+                              ),
+                            ),
+                            child: Text(
+                              'Safety Tips',
+                              style: TextStyle(
+                                color: Colors.black, 
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                     Container(
+                        margin: EdgeInsets.only(top: 1), // Add margin top here
+                        child: Text(
+                          nameC.text,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
-                  ),
+                  )
                 ],
               ),
               SizedBox(
@@ -443,7 +477,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     LiveSafe(),
-                    
                   ],
                 ),
               ),
