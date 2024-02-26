@@ -21,7 +21,7 @@ class _SafeHomeState extends State<SafeHome> {
   _isPermissionGranted() async => await Permission.sms.status.isGranted;
   _sendSms(String phoneNumber, String message, {int? simSlot}) async {
     SmsStatus result = await BackgroundSms.sendMessage(
-        phoneNumber: phoneNumber, message: message, simSlot: 2);
+        phoneNumber: phoneNumber, message: message, simSlot: simSlot);
     if (result == SmsStatus.sent) {
       print("Sent");
       Fluttertoast.showToast(msg: "send");
@@ -139,7 +139,7 @@ class _SafeHomeState extends State<SafeHome> {
                         if (await _isPermissionGranted()) {
                           contactList.forEach((element) {
                             _sendSms("${element.number}",
-                                "i am in trouble $messageBody");
+                                "I am in trouble $messageBody");
                           });
                         } else {
                           Fluttertoast.showToast(msg: "something wrong");
