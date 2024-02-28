@@ -17,6 +17,7 @@ class _SafeHomeState extends State<SafeHome> {
   Position? _curentPosition;
   String? _curentAddress;
   LocationPermission? permission;
+  bool _isMounted = false;
 
   _isPermissionGranted() async => await Permission.sms.status.isGranted;
   _sendSms(String phoneNumber, String message, {int? simSlot}) async {
@@ -66,11 +67,13 @@ class _SafeHomeState extends State<SafeHome> {
             desiredAccuracy: LocationAccuracy.high,
             forceAndroidLocationManager: true)
         .then((Position position) {
-      setState(() {
-        _curentPosition = position;
-        print(_curentPosition!.latitude);
-        _getAddressFromLatLon();
-      });
+      if (_isMounted) {
+        setState(() {
+          _curentPosition = position;
+          print(_curentPosition!.latitude);
+          _getAddressFromLatLon();
+        });
+      }
     }).catchError((e) {
       Fluttertoast.showToast(msg: e.toString());
     });
@@ -94,8 +97,14 @@ class _SafeHomeState extends State<SafeHome> {
   @override
   void initState() {
     super.initState();
-
+    _isMounted = true;
     _getCurrentLocation();
+  }
+
+  @override
+  void dispose() {
+    _isMounted = false;
+    super.dispose();
   }
 
   showModelSafeHome(BuildContext context) {
@@ -168,7 +177,8 @@ class _SafeHomeState extends State<SafeHome> {
         elevation: 5,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: const Color.fromARGB(255, 255, 136, 128), width: 2),
+          side: BorderSide(
+              color: const Color.fromARGB(255, 255, 136, 128), width: 2),
         ),
         child: Container(
           height: 180,
