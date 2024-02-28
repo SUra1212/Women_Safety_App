@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   LocationPermission? permission;
   TextEditingController nameC = TextEditingController();
   String selectedEmoji = '';
+  bool _isMounted = false;
 
   String? id;
   String? profilePic;
@@ -231,10 +232,12 @@ class _HomeScreenState extends State<HomeScreen> {
             desiredAccuracy: LocationAccuracy.high,
             forceAndroidLocationManager: true)
         .then((Position position) {
-      setState(() {
-        _currentPosition = position;
-        _getAddressFromLatLon();
-      });
+      if (_isMounted) {
+        setState(() {
+          _currentPosition = position;
+          _getAddressFromLatLon();
+        });
+      }
     }).catchError((e) {
       Fluttertoast.showToast(msg: e.toString());
     });
@@ -283,6 +286,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _getPermission();
     getDate();
+    _isMounted = true;
+  }
+
+  @override
+  void dispose() {
+    _isMounted = false;
+    super.dispose();
   }
 
   @override
@@ -379,21 +389,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.grey,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    8), 
+                                borderRadius: BorderRadius.circular(8),
                               ),
                             ),
                             child: Text(
                               'Safety Tips',
                               style: TextStyle(
-                                color: Colors.black, 
+                                color: Colors.black,
                               ),
                             ),
                           ),
-
                         ],
                       ),
-                     Container(
+                      Container(
                         margin: EdgeInsets.only(top: 1), // Add margin top here
                         child: Text(
                           nameC.text,
